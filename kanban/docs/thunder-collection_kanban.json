@@ -1,0 +1,136 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "kanban",
+    "dateExported": "2023-11-01T11:22:08.870Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "f2ce1b89-9202-4ca2-a33c-5867730d4b30",
+            "colId": "5e830f2f-43c7-41f8-bcbe-7547e7158efa",
+            "containerId": "",
+            "name": "GetUser",
+            "url": "http://localhost:8085/user/1",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-10-28T10:54:09.095Z",
+            "modified": "2023-10-28T12:59:29.131Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "023a49ae-89c2-4f54-97cc-5f0e12dc676e",
+            "colId": "5e830f2f-43c7-41f8-bcbe-7547e7158efa",
+            "containerId": "",
+            "name": "CreateUser",
+            "url": "http://localhost:8085/user",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-10-28T11:35:11.383Z",
+            "modified": "2023-10-28T12:10:08.877Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"juan@gmail.com\",\n  \"username\": \"juanchu\",\n  \"password\": \"holahola\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a87103ff-a129-4fea-b11c-f65018637ab4",
+            "colId": "5e830f2f-43c7-41f8-bcbe-7547e7158efa",
+            "containerId": "",
+            "name": "DeleteUser",
+            "url": "http://localhost:8085/user/4",
+            "method": "DELETE",
+            "sortNum": 25000,
+            "created": "2023-10-29T10:05:31.298Z",
+            "modified": "2023-10-29T10:06:34.870Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "1f560961-20be-43fc-aab0-275e2ac98eab",
+            "colId": "5e830f2f-43c7-41f8-bcbe-7547e7158efa",
+            "containerId": "",
+            "name": "GetList",
+            "url": "http://localhost:8085/list/1",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-10-29T09:43:00.531Z",
+            "modified": "2023-10-29T09:44:01.277Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "18d16a98-e2a6-4ef8-8807-fa60eec69dd3",
+            "colId": "5e830f2f-43c7-41f8-bcbe-7547e7158efa",
+            "containerId": "",
+            "name": "CreateList",
+            "url": "http://localhost:8085/list",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-10-29T09:43:38.836Z",
+            "modified": "2023-10-29T09:57:35.917Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"limpiar\",\n  \"user\": {\n    \"id\": 3\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e2694ab8-db62-4b1a-8f57-96db73da89f3",
+            "colId": "5e830f2f-43c7-41f8-bcbe-7547e7158efa",
+            "containerId": "",
+            "name": "DeleteList",
+            "url": "http://localhost:8085/list/4",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-10-29T10:00:26.782Z",
+            "modified": "2023-10-29T10:02:00.436Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4a4be054-620e-433e-ab1a-a118da06402b",
+            "colId": "5e830f2f-43c7-41f8-bcbe-7547e7158efa",
+            "containerId": "",
+            "name": "GetTask",
+            "url": "http://localhost:8085/task/1",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-10-29T10:07:36.220Z",
+            "modified": "2023-10-29T11:01:55.111Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8272bb4c-5adc-4a7b-b6b1-051f8fc16f26",
+            "colId": "5e830f2f-43c7-41f8-bcbe-7547e7158efa",
+            "containerId": "",
+            "name": "CreateTask",
+            "url": "http://localhost:8085/task",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2023-10-29T10:12:59.584Z",
+            "modified": "2023-11-01T11:18:46.867Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"description\": \"Banyo\",\n  \"creation_date\": \"2023-10-29T11:08:19.000+00:00\",\n  \"end_date\": \"2023-10-30T11:08:19.000+00:00\",\n  \"state\": \"Por hacer\",\n  \"list\": {\n    \"id\": 1\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
