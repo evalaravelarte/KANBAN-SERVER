@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.ausiasmarch.kanban.entity.ListEntity;
@@ -46,8 +47,8 @@ public class ListApi {
     }
 
     @GetMapping("")
-    public ResponseEntity<Page<ListEntity>> getPage(Pageable oPageable) {
-        return ResponseEntity.ok(oListService.getPage(oPageable));
+    public ResponseEntity<Page<ListEntity>> getPage(Pageable oPageable, @RequestParam(value = "user", defaultValue = "0", required = false) Long userId) {
+        return ResponseEntity.ok(oListService.getPage(oPageable, userId));
     }
 
     @PostMapping("/populate/{amount}")

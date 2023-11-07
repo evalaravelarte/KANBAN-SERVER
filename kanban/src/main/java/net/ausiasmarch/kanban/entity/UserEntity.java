@@ -38,7 +38,9 @@ public class UserEntity {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     @NotBlank
-    private String password;
+    private String password = "AD67DC1D98993ADA5A163B95C92D17498100320829720FE5019E86E788EE3CE3";
+
+    private Boolean role = false;
 
     @OneToMany(mappedBy = "user", fetch = jakarta.persistence.FetchType.LAZY)
     private List<ListEntity> lists;
@@ -51,17 +53,19 @@ public class UserEntity {
         //tasks = new ArrayList<>();
     }
 
-    public UserEntity(Long id, String username, String email, String password) {
+    public UserEntity(Long id, String username, String email, String password, Boolean role) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
-    public UserEntity(String username, String email, String password) {
+    public UserEntity(String username, String email, String password, Boolean role) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public Long getId() {
@@ -94,6 +98,14 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getRole() {
+        return role;
+    }
+
+    public void setRole(Boolean role) {
+        this.role = role;
     }
 
     public int getLists() {
