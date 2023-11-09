@@ -27,6 +27,9 @@ public class TaskService {
     @Autowired
     ListRepository oListRepository;
 
+    @Autowired
+    SessionService oSessionService;
+
     public TaskEntity get(Long id) {
         return oTaskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
     }

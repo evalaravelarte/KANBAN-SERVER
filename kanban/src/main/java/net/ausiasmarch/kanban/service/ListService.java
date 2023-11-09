@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.ausiasmarch.kanban.entity.ListEntity;
-import net.ausiasmarch.kanban.entity.UserEntity;
 import net.ausiasmarch.kanban.exception.ResourceNotFoundException;
 import net.ausiasmarch.kanban.repository.ListRepository;
 import net.ausiasmarch.kanban.repository.UserRepository;
@@ -29,6 +28,9 @@ public class ListService {
     @Autowired
     UserService oUserService;
 
+    @Autowired
+    SessionService oSessionService;
+
     public ListEntity get(Long id) {
         return oListRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("List not found"));
     }
@@ -43,11 +45,9 @@ public class ListService {
 
     public Long create(ListEntity oListEntity) {
         oListEntity.setId(null);
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        UserEntity oUserEntityInSession = oUserRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        if (Boolean.TRUE.equals(oUserEntityInSession.getRole())) { // User
-            oListEntity.setUser(oUserEntityInSession);
+        oSessionService.onlyAdminsOrUsers();
+        if (oSessionService.isUser()) { // User
+            oListEntity.setUser(oSessionService.getSessionUser());
             return oListRepository.save(oListEntity).getId();
         } else {
             return oListRepository.save(oListEntity).getId();
@@ -55,80 +55,39 @@ public class ListService {
 
     }
 
-    public ListEntity update(ListEntity oListEntity) {
-        oListEntity = oListRepository.findById(oListEntity.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("List not found"));
-
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-
-        UserEntity oUserEntityInSession = oUserRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        if (Boolean.TRUE.equals(oUserEntityInSession.getRole())) { // User
-            if (oListEntity.getUser().getId().equals(oUserEntityInSession.getId())) {
-                return oListRepository.save(oListEntity);
+    public ListEntity update(ListEntity oListEntityToSet) {
+        ListEntity oListEntityFromDatabase = this.get(oListEntityToSet.getId());
+        oSessionService.onlyAdminsOrUsersWithItsOwnData(oListEntityFromDatabase.getUser().getId());
+        if (oSessionService.isUser()) {
+            if (oListEntityToSet.getUser().getId().equals(oSessionService.getSessionUser().getId())) {
+                return oListRepository.save(oListEntityToSet);
             } else {
                 throw new ResourceNotFoundException("Unauthorized");
             }
         } else {
-            return oListRepository.save(oListEntity);
+            return oListRepository.save(oListEntityToSet);
         }
-
     }
+
 
     public Long delete(Long id) {
-        ListEntity oListEntity = oListRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("List not found"));
-
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-
-        UserEntity oUserEntityInSession = oUserRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        if (Boolean.TRUE.equals(oUserEntityInSession.getRole())) { // User
-            if (oListEntity.getUser().getId().equals(oUserEntityInSession.getId())) {
-                oListRepository.deleteById(id);
-                return id;
-            } else {
-                throw new ResourceNotFoundException("Unauthorized");
-            }
-        } else {
-            oListRepository.deleteById(id);
-            return id;
-        }
+        ListEntity oListEntityFromDatabase = this.get(id);
+        oSessionService.onlyAdminsOrUsersWithItsOwnData(oListEntityFromDatabase.getUser().getId());
+        oListRepository.deleteById(id);
+        return id;
     }
 
-    public Long populate(Integer amount) {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-
-        UserEntity oUserEntityInSession = oUserRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        if (Boolean.TRUE.equals(oUserEntityInSession.getRole())) { // User
-            for (int i = 0; i < amount; i++) {
-                oListRepository.save(new ListEntity("name" + i));
-            }
-            return oListRepository.count();
-        } else {
-            throw new ResourceNotFoundException("Unauthorized");
-        }
-    }
+    /*public Long populate(Long amount) {
+        
+    }*/
 
     @Transactional
     public Long empty() {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-
-        UserEntity oUserEntityInSession = oUserRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        if (Boolean.FALSE.equals(oUserEntityInSession.getRole())) { // User
-            oListRepository.deleteAll();
-            oListRepository.resetAutoIncrement();
-            oListRepository.flush();
-            return oListRepository.count();
-        } else {
-            throw new ResourceNotFoundException("Unauthorized");
-        }
+        oSessionService.onlyAdmins();
+        oListRepository.deleteAll();
+        oListRepository.resetAutoIncrement();
+        oListRepository.flush();
+        return oListRepository.count();
         
     }
 

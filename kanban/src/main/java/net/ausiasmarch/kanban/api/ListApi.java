@@ -51,10 +51,10 @@ public class ListApi {
         return ResponseEntity.ok(oListService.getPage(oPageable, userId));
     }
 
-    @PostMapping("/populate/{amount}")
+   /*  @PostMapping("/populate/{amount}")
     public ResponseEntity<Long> populate(@PathVariable("amount") Integer amount) {
         return ResponseEntity.ok(oListService.populate(amount));
-    }
+    } */
 
     @DeleteMapping("/empty")
     public ResponseEntity<Long> empty() {
