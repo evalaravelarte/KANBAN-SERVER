@@ -1,5 +1,6 @@
 package net.ausiasmarch.kanban.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

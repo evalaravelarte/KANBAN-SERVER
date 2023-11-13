@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,8 +28,10 @@ public class TaskEntity {
     @Size(max = 255)
     private String description;
 
+    @Temporal(TemporalType.DATE)
     private Date creation_date;
 
+    @Temporal(TemporalType.DATE)
     private Date end_date;
 
     @NotNull
