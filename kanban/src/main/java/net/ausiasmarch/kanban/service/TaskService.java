@@ -1,5 +1,7 @@
 package net.ausiasmarch.kanban.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +42,7 @@ public class TaskService {
 
     public Long create(TaskEntity oTaskEntity) {
         oTaskEntity.setId(null);
+        oTaskEntity.setCreation_date(LocalDateTime.now());
         return oTaskRepository.save(oTaskEntity).getId();
     }
 
