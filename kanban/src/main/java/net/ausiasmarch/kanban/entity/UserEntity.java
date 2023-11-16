@@ -38,7 +38,7 @@ public class UserEntity {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     @NotBlank
-    private String password = "AD67DC1D98993ADA5A163B95C92D17498100320829720FE5019E86E788EE3CE3";
+    private String password = "7cc6d962e40fbc035b7a898a48d8aa8d7574a1319d4724c596b22bd06f3f16ac";
 
     private Boolean role = false;
 

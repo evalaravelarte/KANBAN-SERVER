@@ -14,7 +14,7 @@ import net.ausiasmarch.kanban.repository.UserRepository;
 @Service
 public class UserService {
 
-    private final String kanbanPASSWORD = "AD67DC1D98993ADA5A163B95C92D17498100320829720FE5019E86E788EE3CE3";
+    private final String kanbanPASSWORD = "7cc6d962e40fbc035b7a898a48d8aa8d7574a1319d4724c596b22bd06f3f16ac";
 
     @Autowired
     UserRepository oUserRepository;
@@ -27,6 +27,11 @@ public class UserService {
 
     public UserEntity get(Long id) {
         return oUserRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    public UserEntity getByUsername(String username) {
+        return oUserRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found by username"));
     }
 
     public Page<UserEntity> getPage(Pageable oPageable) {
@@ -61,11 +66,29 @@ public class UserService {
         return id;
     }
 
+   /*  public Long populate(Integer amount) {
+        oSessionService.onlyAdmins();
+        for (int i = 0; i < amount; i++) {
+            String email = name.substring(0, 3) + surname.substring(0, 3) + lastname.substring(0, 2) + i
+                    + "@ausiasmarch.net";
+            String username = DataGenerationHelper
+                    .doNormalizeString(
+                            name.substring(0, 3) + surname.substring(1, 3) + lastname.substring(1, 2) + i);
+            oUserRepository.save(new UserEntity(name, surname, lastname, email, username,
+                    "e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e", true));
+        }
+        return oUserRepository.count();
+    }*/
+
     @Transactional
     public Long empty() {
         oSessionService.onlyAdmins();
         oUserRepository.deleteAll();
         oUserRepository.resetAutoIncrement();
+        UserEntity oUserEntity1 = new UserEntity(1L,"evalara", "evalara@gmail.com", kanbanPASSWORD, false);
+        oUserRepository.save(oUserEntity1);
+        oUserEntity1 = new UserEntity(2L, "kanban@gmail.com", "kanban", kanbanPASSWORD, true);
+        oUserRepository.save(oUserEntity1);
         return oUserRepository.count();
     }
 

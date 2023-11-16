@@ -26,7 +26,7 @@ public class SessionService {
         return JWTHelper.generateJWT(oUserBean.getUsername());
     }
 
-    public String getSessionUsername() {
+    public String getSessionUsername() {        
         if (oHttpServletRequest.getAttribute("username") instanceof String) {
             return oHttpServletRequest.getAttribute("username").toString();
         } else {
@@ -34,9 +34,9 @@ public class SessionService {
         }
     }
 
-    public UserEntity getSessionUser () {
+     public UserEntity getSessionUser() {
         if (this.getSessionUsername() != null) {
-            return oUserRepository.findByUsername(this.getSessionUsername()).get();
+            return oUserRepository.findByUsername(this.getSessionUsername()).orElse(null);    
         } else {
             return null;
         }
@@ -51,6 +51,7 @@ public class SessionService {
     }
 
     public Boolean isAdmin() {
+        System.out.println(this.getSessionUsername());
         if (this.getSessionUsername() != null) {
             UserEntity oUserEntityInSession = oUserRepository.findByUsername(this.getSessionUsername())
                     .orElseThrow(() -> new ResourceNotFoundException("User not found"));
@@ -72,7 +73,7 @@ public class SessionService {
 
     public void onlyAdmins() {
         if (!this.isAdmin()) {
-            throw new UnauthorizedException("Only admins can do this");
+            throw new UnauthorizedException("Only admins can do this. User: " + this.getSessionUsername());
         }
     }
 

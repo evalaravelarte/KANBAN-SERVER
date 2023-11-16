@@ -42,12 +42,6 @@ public class TaskEntity {
     @JoinColumn(name = "id_list")
     private ListEntity list;
 
-    /*
-     * @ManyToOne
-     * 
-     * @JoinColumn(name = "id_user")
-     * private UserEntity user;
-     */
 
     public TaskEntity() {
     }
@@ -120,14 +114,5 @@ public class TaskEntity {
         this.list = list;
     }
 
-    /*
-     * public UserEntity getUser() {
-     * return user;
-     * }
-     * 
-     * public void setUser(UserEntity user) {
-     * this.user = user;
-     * }
-     */
-
+    
 }
