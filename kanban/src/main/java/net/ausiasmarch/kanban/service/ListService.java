@@ -1,5 +1,7 @@
 package net.ausiasmarch.kanban.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +35,10 @@ public class ListService {
 
     public ListEntity get(Long id) {
         return oListRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("List not found"));
+    }
+
+    public List<ListEntity> getAllByUser(Long id_user) {
+        return oListRepository.findAllByUserId(id_user);
     }
 
     public Page<ListEntity> getPage(Pageable oPageable, Long userId) {

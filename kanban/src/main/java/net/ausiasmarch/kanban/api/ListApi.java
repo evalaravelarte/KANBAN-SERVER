@@ -1,5 +1,7 @@
 package net.ausiasmarch.kanban.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +51,11 @@ public class ListApi {
     @GetMapping("")
     public ResponseEntity<Page<ListEntity>> getPage(Pageable oPageable, @RequestParam(value = "user", defaultValue = "0", required = false) Long userId) {
         return ResponseEntity.ok(oListService.getPage(oPageable, userId));
+    }
+
+    @GetMapping("/{id_user}")
+    public ResponseEntity<List<ListEntity>> getAllByUser(@PathVariable("id_user") Long id_user) {
+        return ResponseEntity.ok(oListService.getAllByUser(id_user));
     }
 
    /*  @PostMapping("/populate/{amount}")
