@@ -1,6 +1,7 @@
 package net.ausiasmarch.kanban.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,10 @@ public class TaskService {
 
     public TaskEntity get(Long id) {
         return oTaskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
+    }
+
+    public List<TaskEntity> getAllByList(Long id_list) {
+        return oTaskRepository.findAllByListId(id_list);
     }
 
     public Page<TaskEntity> getPage(Pageable oPageable) {
