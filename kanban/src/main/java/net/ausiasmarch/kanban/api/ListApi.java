@@ -53,16 +53,6 @@ public class ListApi {
         return ResponseEntity.ok(oListService.getPage(oPageable, userId));
     }
 
-    /*@GetMapping("/{id_user}")
-    public ResponseEntity<List<ListEntity>> getAllByUser(@PathVariable("id_user") Long id_user) {
-        return ResponseEntity.ok(oListService.getAllByUser(id_user));
-    }
-
-     @PostMapping("/populate/{amount}")
-    public ResponseEntity<Long> populate(@PathVariable("amount") Integer amount) {
-        return ResponseEntity.ok(oListService.populate(amount));
-    } */
-
     @DeleteMapping("/empty")
     public ResponseEntity<Long> empty() {
         return ResponseEntity.ok(oListService.empty());

@@ -53,11 +53,6 @@ public class TaskApi {
         return ResponseEntity.ok(oTaskService.getPage(oPageable,listId));
     }
     
-    /* 
-    @GetMapping("/{id_list}")
-    public ResponseEntity<List<TaskEntity>> getAllByList(@PathVariable("id_list") Long id_list) {
-        return ResponseEntity.ok(oTaskService.getAllByList(id_list));
-    }*/
 
     @PostMapping("/populate/{amount}")
     public ResponseEntity<Long> populate(@PathVariable("amount") Integer amount) {
