@@ -84,7 +84,7 @@ public class UserService {
         oUserRepository.resetAutoIncrement();
         UserEntity oUserEntity1 = new UserEntity(1L,"evalara", "evalara@gmail.com", kanbanPASSWORD, false);
         oUserRepository.save(oUserEntity1);
-        oUserEntity1 = new UserEntity(2L, "kanban@gmail.com", "kanban", kanbanPASSWORD, true);
+        oUserEntity1 = new UserEntity(2L, "kanban", "kanban@gmail.com", kanbanPASSWORD, true);
         oUserRepository.save(oUserEntity1);
         return oUserRepository.count();
     }
