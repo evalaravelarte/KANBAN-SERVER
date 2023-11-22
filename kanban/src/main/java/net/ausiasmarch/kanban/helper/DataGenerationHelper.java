@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class DataGenerationHelper {
 
-    private static final String[] aUsernames = { "mariposa23", "astro_girl","thunder_bolt", "zen_master","pixel_ninja", "guitar_maestro", "sunny_dayz", "moonlight_runner", "neon_panda",
-        "velocity_rider","ocean_dreamer", "firefly_quest", "arctic_explorer", "jungle_wanderer", "cosmic_traveler", "mystic_scribe", "echo_voyager" };
+    private static final String[] aUsernames = { "mariposa23", "astrogirl","thunderbolt", "zenmaster","pixelninja", "guitarmaestro", "sunnydayz", "moonlightrunner", "neonpanda",
+        "velocityrider","oceandreamer", "fireflyquest", "arcticexplorer", "junglewanderer", "cosmictraveler", "mysticscribe", "echovoyager" };
 
 
     public static int getRandomInt(int min, int max) {

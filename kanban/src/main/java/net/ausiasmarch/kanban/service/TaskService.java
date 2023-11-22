@@ -41,21 +41,32 @@ public class TaskService {
         return oTaskRepository.findAllByListId(id_list);
     }
 
-    public Page<TaskEntity> getPage(Pageable oPageable) {
-        return oTaskRepository.findAll(oPageable);
+    public Page<TaskEntity> getPage(Pageable oPageable, Long listId) {
+        if (listId == 0) {
+            return oTaskRepository.findAll(oPageable);
+        } else {
+            return oTaskRepository.findByListId(listId, oPageable);
+        }
+        
     }
 
     public Long create(TaskEntity oTaskEntity) {
+        oSessionService.onlyAdminsOrUsers();
         oTaskEntity.setId(null);
         oTaskEntity.setCreation_date(LocalDateTime.now());
+        oTaskEntity.setState("Por hacer");
         return oTaskRepository.save(oTaskEntity).getId();
     }
 
-    public TaskEntity update(TaskEntity oTaskEntity) {
-        return oTaskRepository.save(oTaskEntity);
+    public TaskEntity update(TaskEntity oTaskEntityToSet) {
+        TaskEntity oTaskEntityFromDatabase = this.get(oTaskEntityToSet.getId());
+        oSessionService.onlyAdminsOrUsersWithItsOwnData(oTaskEntityFromDatabase.getList().getId());
+        return oTaskRepository.save(oTaskEntityToSet);
     }
 
     public Long delete(Long id) {
+        TaskEntity oTaskEntityFromDatabase = this.get(id);
+        oSessionService.onlyAdminsOrUsersWithItsOwnData(oTaskEntityFromDatabase.getList().getId());
         oTaskRepository.deleteById(id);
         return id;
     }
@@ -69,6 +80,7 @@ public class TaskService {
 
     @Transactional
     public Long empty() {
+        oSessionService.onlyAdmins();
         oTaskRepository.deleteAll();
         oTaskRepository.resetAutoIncrement();
         oTaskRepository.flush();
