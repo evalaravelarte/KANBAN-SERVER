@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.servlet.http.HttpServletRequest;
 import net.ausiasmarch.kanban.entity.UserEntity;
 import net.ausiasmarch.kanban.exception.ResourceNotFoundException;
+import net.ausiasmarch.kanban.helper.DataGenerationHelper;
 import net.ausiasmarch.kanban.repository.UserRepository;
 
 @Service
@@ -66,19 +67,15 @@ public class UserService {
         return id;
     }
 
-   /*  public Long populate(Integer amount) {
+     public Long populate(Integer amount) {
         oSessionService.onlyAdmins();
         for (int i = 0; i < amount; i++) {
-            String email = name.substring(0, 3) + surname.substring(0, 3) + lastname.substring(0, 2) + i
-                    + "@ausiasmarch.net";
-            String username = DataGenerationHelper
-                    .doNormalizeString(
-                            name.substring(0, 3) + surname.substring(1, 3) + lastname.substring(1, 2) + i);
-            oUserRepository.save(new UserEntity(name, surname, lastname, email, username,
-                    "e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e", true));
+            String email = DataGenerationHelper.getRandomEmail();
+            String username = DataGenerationHelper.getRadomUsername();
+            oUserRepository.save(new UserEntity(username, email, kanbanPASSWORD, false));
         }
         return oUserRepository.count();
-    }*/
+    }
 
     @Transactional
     public Long empty() {
